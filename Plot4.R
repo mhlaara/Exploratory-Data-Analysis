@@ -1,3 +1,4 @@
+## Read data
 t <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings = "?", colClasses = c('character','character','numeric','numeric','numeric','numeric','numeric','numeric','numeric'))
 
 ## Format date to Type Date
@@ -24,33 +25,6 @@ t <- cbind(dateTime, t)
 ## Format dateTime Column
 t$dateTime <- as.POSIXct(dateTime)
 
-## Create the histogram
-hist(t$Global_active_power, main="Global Active Power", xlab = "Global Active Power (kilowatts)", col="red")
-
-## Save file and close device
-dev.copy(png,"plot1.png", width=480, height=480)
-dev.off()
-
-## Create Plot 2
-plot(t$Global_active_power~t$dateTime, type="l", ylab="Global Active Power (kilowatts)", xlab="")
-
-dev.copy(png,"plot2.png", width=480, height=480)
-dev.off()
-
-## Create Plot 3
-with(t, {
-        plot(Sub_metering_1~dateTime, type="l",
-             ylab="Global Active Power (kilowatts)", xlab="")
-        lines(Sub_metering_2~dateTime,col='Red')
-        lines(Sub_metering_3~dateTime,col='Blue')
-})
-legend("topright", col=c("black", "red", "blue"), lwd=c(1,1,1), 
-       c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
-
-## Saving to file
-dev.copy(png, file="plot3.png", height=480, width=480)
-dev.off()
-
 ## Create Plot 4
 par(mfrow=c(2,2), mar=c(4,4,2,1), oma=c(0,0,2,0))
 with(t, {
@@ -69,5 +43,5 @@ with(t, {
 })
 
 ## Saving to file
-dev.copy(png, file="plot4.png", height=480, width=480)
+dev.copy(png, file="Plot4.png", height=480, width=480)
 dev.off()
